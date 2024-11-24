@@ -62,9 +62,10 @@
           </template>
 
           <div class="about-content">
-            <p>本站基于 <a href="https://github.com/QNquenan/homepage-for-vue3" target="_blank">homepage-for-vue3</a> 项目改动
+            <p>本站基于homepage-for-vue3项目改动
             </p>
-            <p>感谢原作者的开源贡献！</p>
+            <p>感谢原作者的开源贡献！原项目地址:</p>
+            <p>https://github.com/QNquenan/homepage-for-vue3</p>
           </div>
         </vs-alert>
       </div>
