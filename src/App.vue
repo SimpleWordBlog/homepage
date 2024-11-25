@@ -4,45 +4,76 @@
       <div v-for="n in 30" :key="n" class="rain-drop"></div>
     </div>
 
-    <div class="main" v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1 }" :duration="1000"
-      style="display: flex; flex-direction: column; align-items: center;">
-      <div class="info" style="text-align: center;">
-        <div class="header">
-          <img src="https://dl3.img.timecdn.cn/2024/11/24/my.jpg!h.webp" alt="">
+    <div class="main" v-motion :initial="{ opacity: 0 }" :enter="{ opacity: 1 }" :duration="1000">
+      <div class="content-wrapper">
+        <div class="info">
+          <div class="header">
+            <img src="https://dl3.img.timecdn.cn/2024/11/24/my.jpg!h.webp" alt="">
+          </div>
+
+          <div class="infoText">
+            <h1>Hi,</h1>
+            <h1>I'm <span class="name">SimpleWord</span></h1>
+          </div>
         </div>
 
-        <div class="infoText">
-          <h1>Hi,</h1>
-          <h1>I'm <span class="qn">SimpleWord</span></h1>
+        <div class="typewriter">
+          <i class="iconfont icon-baojiaquotation2"></i>
+          <VueTyped :strings="typingTexts" :startDelay="300" :typeSpeed="100" :backSpeed="30" :loop="true"
+            :showCursor="true">
+          </VueTyped>
+          <i class="iconfont icon-baojiaquotation"></i>
         </div>
-      </div>
 
-      <div class="typewriter" style="text-align: center;">
-        <i class="iconfont icon-baojiaquotation2"></i>
-        <VueTyped :strings="typingTexts" :startDelay="300" :typeSpeed="100" :backSpeed="30" :loop="true"
-          :showCursor="true">
-        </VueTyped>
-        <i class="iconfont icon-baojiaquotation"></i>
-      </div>
+        <div class="search-container">
+          <div class="search-box">
+            <div class="search-icon" @click="showEngines = !showEngines">
+              <span class="engine-text-icon">{{ selectedEngine.icon }}</span>
+            </div>
+            <input 
+              type="text" 
+              v-model="searchQuery" 
+              @keyup.enter="handleSearch"
+              @focus="showEngines = false"
+              :placeholder="`在 ${selectedEngine.name} 中搜索...`"
+            >
+            <transition name="fade">
+              <div class="engine-list" v-show="showEngines">
+                <div 
+                  v-for="engine in searchEngines" 
+                  :key="engine.name"
+                  class="engine-item"
+                  @click="selectEngine(engine)"
+                  :class="{ active: selectedEngine.name === engine.name }"
+                >
+                  <span class="engine-text-icon">{{ engine.icon }}</span>
+                  <span>{{ engine.name }}</span>
+                  <span class="shortcut">{{ engine.shortcut }}</span>
+                </div>
+              </div>
+            </transition>
+          </div>
+        </div>
 
-      <div class="btns" style="display: flex; justify-content: center; flex-wrap: wrap; gap: 10px;">
-        <a v-for="i in btnList" :key="i.animate" :href="i.href" target="_blank">
-          <vs-button type="gradient" :color="i.color" animation-type="scale">
-            <i :class="`iconfont ${i.icon}`"></i>
+        <div class="btns">
+          <a v-for="i in btnList" :key="i.animate" :href="i.href" target="_blank">
+            <vs-button type="gradient" :color="i.color" animation-type="scale">
+              <i :class="`iconfont ${i.icon}`"></i>
+
+              <template #animate>
+                {{ i.animate }}
+              </template>
+            </vs-button>
+          </a>
+
+          <vs-button class="lastBtn" color="#457B9D" animation-type="scale" @click="active = true">
+            <i class="iconfont icon-guanyu"></i>
 
             <template #animate>
-              {{ i.animate }}
+              关于
             </template>
           </vs-button>
-        </a>
-
-        <vs-button class="lastBtn" color="#457B9D" animation-type="scale" @click="active = true">
-          <i class="iconfont icon-guanyu"></i>
-
-          <template #animate>
-            关于
-          </template>
-        </vs-button>
+        </div>
       </div>
     </div>
 
@@ -104,9 +135,13 @@
 </template>
 
 <script>
+import { Icon } from '@iconify/vue'
 import { VsNotification } from 'vuesax-alpha'
 
 export default {
+  components: {
+    Icon
+  },
   data() {
     return {
       aboutHidden: true,
@@ -131,7 +166,29 @@ export default {
         },
       ],
       active: false,
-      theme: 'system'
+      theme: 'system',
+      searchQuery: '',
+      showEngines: false,
+      selectedEngine: {
+        name: 'Bing',
+        url: 'https://cn.bing.com/search?q=',
+        icon: 'B',
+        shortcut: 'Alt+1'
+      },
+      searchEngines: [
+        {
+          name: 'Bing',
+          url: 'https://cn.bing.com/search?q=',
+          icon: 'B',
+          shortcut: 'Alt+1'
+        },
+        {
+          name: 'Google',
+          url: 'https://www.google.com/search?q=',
+          icon: 'G',
+          shortcut: 'Alt+2'
+        }
+      ]
     }
   },
   mounted() {
@@ -142,6 +199,21 @@ export default {
       this.applyTheme()
     }
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.applyTheme);
+    window.addEventListener('keydown', (e) => {
+      if (e.altKey) {
+        switch(e.key) {
+          case '1':
+            this.selectEngine(this.searchEngines[0]);
+            break;
+          case '2':
+            this.selectEngine(this.searchEngines[1]);
+            break;
+          case '3':
+            this.selectEngine(this.searchEngines[2]);
+            break;
+        }
+      }
+    });
   },
   methods: {
     setTheme(mode) {
@@ -154,6 +226,15 @@ export default {
       const themeToApply = this.theme === 'system' ? (prefersDark ? 'dark' : 'light') : this.theme;
       document.documentElement.setAttribute('data-theme', themeToApply);
     },
+    handleSearch() {
+      if (this.searchQuery.trim()) {
+        window.open(this.selectedEngine.url + encodeURIComponent(this.searchQuery), '_blank');
+      }
+    },
+    selectEngine(engine) {
+      this.selectedEngine = engine;
+      this.showEngines = false;
+    }
   }
 }
 </script>
@@ -427,106 +508,215 @@ export default {
 .main {
   position: relative;
   z-index: 2;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+}
+
+.content-wrapper {
+  max-width: 800px;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 50px;
+  gap: 20px;
 }
 
-// 调整文字样式
-.info,
-.typewriter,
-.btns,
-.footer {
-  color: #fff;
-  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-}
+.info {
+  text-align: center;
+  margin-bottom: 0;
 
-// 头像效果
-.header img {
-  border-radius: 50%;
-  box-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
-}
-
-// 优化按钮样式
-.btns {
-  margin-top: 30px;
-  display: flex;
-  gap: 15px;
-  flex-wrap: wrap;
-  justify-content: center;
-
-  a {
-    text-decoration: none;
+  .header {
+    margin-bottom: 15px;
+    
+    img {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+      transition: all 0.3s ease;
+      
+      &:hover {
+        transform: scale(1.05);
+        border-color: rgba(255, 255, 255, 0.4);
+        box-shadow: 0 0 30px rgba(255, 255, 255, 0.4);
+      }
+    }
   }
 
-  .vs-button {
-    backdrop-filter: blur(8px);
-    background: rgba(255, 255, 255, 0.15);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+  .infoText {
+    h1 {
+      color: #fff;
+      font-size: 2.2em;
+      margin: 3px 0;
+      text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+      
+      .name {
+        background: linear-gradient(45deg, #fe8599, #ff6b8b);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.typewriter {
+  text-align: center;
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1em;
+  margin: 10px 0;
+  padding: 0 15px;
+  max-width: 500px;
+  
+  .iconfont {
+    opacity: 0.8;
+    margin: 0 10px;
+  }
+  
+  .vue-typed {
+    display: inline-block;
+    min-height: 24px;
+  }
+}
+
+.search-container {
+  width: 100%;
+  max-width: 500px;
+  margin: 15px 0;
+  padding: 0 20px;
+  
+  .search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    height: 40px;
+    border-radius: 10px;
     transition: all 0.3s ease;
-    padding: 8px 20px;
-
-    &:hover {
-      transform: translateY(-3px);
-      box-shadow: 0 7px 20px rgba(0, 0, 0, 0.2);
-      background: rgba(255, 255, 255, 0.25);
-      border-color: rgba(255, 255, 255, 0.4);
+    
+    &:hover, &:focus-within {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 255, 255, 0.3);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
-
-    &:active {
-      transform: translateY(0);
+    
+    .search-icon {
+      width: 40px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      
+      .engine-text-icon {
+        font-size: 18px;
+        font-weight: bold;
+        color: rgba(255, 255, 255, 0.9);
+      }
     }
-
-    // 图标样式
-    .iconfont {
-      margin-right: 5px;
-      font-size: 1.1em;
-      vertical-align: middle;
+    
+    input {
+      flex: 1;
+      height: 100%;
+      padding: 0 15px;
+      border: none;
+      background: transparent;
+      color: #fff;
+      font-size: 14px;
+      
+      &:focus {
+        outline: none;
+      }
+      
+      &::placeholder {
+        color: rgba(255, 255, 255, 0.7);
+      }
     }
-
-    // 按钮文字
-    .vs-button__animate {
-      font-weight: 500;
-      letter-spacing: 0.5px;
-    }
-  }
-
-  // 最后一个按钮(关于按钮)特殊样式
-  .lastBtn.vs-button {
-    background: rgba(69, 123, 157, 0.3);
-    border-color: rgba(69, 123, 157, 0.4);
-
-    &:hover {
-      background: rgba(69, 123, 157, 0.4);
-      border-color: rgba(69, 123, 157, 0.5);
+    
+    .engine-list {
+      position: absolute;
+      top: calc(100% + 8px);
+      left: 0;
+      width: 100%;
+      background: rgba(30, 30, 30, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+      z-index: 100;
+      
+      .engine-item {
+        display: flex;
+        align-items: center;
+        padding: 12px 15px;
+        cursor: pointer;
+        transition: all 0.2s;
+        color: rgba(255, 255, 255, 0.85);
+        
+        .engine-text-icon {
+          font-size: 16px;
+          font-weight: bold;
+          width: 20px;
+          text-align: center;
+          margin-right: 10px;
+        }
+        
+        span {
+          font-size: 14px;
+        }
+        
+        .shortcut {
+          margin-left: auto;
+          opacity: 0.5;
+          font-size: 12px;
+        }
+        
+        &:hover {
+          background: rgba(255, 255, 255, 0.1);
+          color: #fff;
+        }
+        
+        &.active {
+          background: rgba(255, 255, 255, 0.15);
+          color: #fff;
+        }
+      }
     }
   }
 }
 
-.footer {
-  margin-top: auto;
-  padding: 20px 0;
-}
-
-// 优化弹窗中的按钮
-.footerBtn {
+.btns {
+  margin-top: 20px;
   display: flex;
   gap: 12px;
-  margin-top: 15px;
-
+  flex-wrap: wrap;
+  justify-content: center;
+  
   .vs-button {
-    transition: all 0.3s ease;
-
+    padding: 8px 20px;
+    border-radius: 25px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 5px 15px rgba(254, 133, 153, 0.2);
-    }
-
-    &:active {
-      transform: translateY(0);
     }
   }
+}
+
+.footer {
+  position: fixed;
+  bottom: 15px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
 }
 
 // 弹窗样式优化
@@ -586,5 +776,17 @@ export default {
       }
     }
   }
+}
+
+// 添加过渡动画
+.fade-enter-active,
+.fade-leave-active {
+  transition: all 0.2s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+  transform: translateY(-5px);
 }
 </style>
