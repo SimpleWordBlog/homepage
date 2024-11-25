@@ -229,6 +229,7 @@ export default {
     handleSearch() {
       if (this.searchQuery.trim()) {
         window.open(this.selectedEngine.url + encodeURIComponent(this.searchQuery), '_blank');
+        this.searchQuery = '';
       }
     },
     selectEngine(engine) {
