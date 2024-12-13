@@ -158,7 +158,7 @@ export default {
           icon: 'icon-bizhishezhi',
           animate: '壁纸',
           color: '#95D5B2',
-          href: 'https://asdbid.pages.dev/'
+          href: 'https://haowallpaper.com/homeView'
         },
         {
           icon: 'icon-github',
