@@ -156,7 +156,7 @@ export default {
           icon: 'icon-wodeboke',
           animate: '博客',
           color: '#fe8599',
-          href: 'https://vite-blog0.pages.dev/'
+          href: 'https://asdbid.pages.dev/'
         },
         {
           icon: 'icon-github',
