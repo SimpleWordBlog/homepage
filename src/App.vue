@@ -30,22 +30,12 @@
             <div class="search-icon" @click="showEngines = !showEngines">
               <span class="engine-text-icon">{{ selectedEngine.icon }}</span>
             </div>
-            <input 
-              type="text" 
-              v-model="searchQuery" 
-              @keyup.enter="handleSearch"
-              @focus="showEngines = false"
-              :placeholder="`在 ${selectedEngine.name} 中搜索...`"
-            >
+            <input type="text" v-model="searchQuery" @keyup.enter="handleSearch" @focus="showEngines = false"
+              :placeholder="`在 ${selectedEngine.name} 中搜索...`">
             <transition name="fade">
               <div class="engine-list" v-show="showEngines">
-                <div 
-                  v-for="engine in searchEngines" 
-                  :key="engine.name"
-                  class="engine-item"
-                  @click="selectEngine(engine)"
-                  :class="{ active: selectedEngine.name === engine.name }"
-                >
+                <div v-for="engine in searchEngines" :key="engine.name" class="engine-item"
+                  @click="selectEngine(engine)" :class="{ active: selectedEngine.name === engine.name }">
                   <span class="engine-text-icon">{{ engine.icon }}</span>
                   <span>{{ engine.name }}</span>
                   <span class="shortcut">{{ engine.shortcut }}</span>
@@ -67,7 +57,7 @@
           </a>
 
           <vs-button class="lastBtn" color="#457B9D" animation-type="scale" @click="active = true">
-            <i class="iconfont icon-guanyu"></i>
+            <i class="iconfont icon-about"></i>
 
             <template #animate>
               关于
@@ -87,7 +77,7 @@
         <vs-alert color="#00BCD4" type="gradient" v-model:hidden-content="aboutHidden">
           <template #title>
             <div class="alert-title">
-              <i class="iconfont icon-guanyu"></i>
+              <i class="iconfont icon-about"></i>
               关于项目
             </div>
           </template>
@@ -117,7 +107,7 @@
 
             <input type="radio" id="dark" name="theme" :checked="theme == 'dark'">
             <label @click="setTheme('dark')" for="dark">
-              <i class="iconfont icon-yewan"></i>
+              <i class="iconfont icon-lkingboyewanyueliang"></i>
             </label>
 
             <div class="checkedBg"></div>
@@ -153,9 +143,21 @@ export default {
       ],
       btnList: [
         {
-          icon: 'icon-wodeboke',
+          icon: 'icon-book',
           animate: '博客',
           color: '#fe8599',
+          href: 'https://asdbid.pages.dev/'
+        },
+        {
+          icon: 'icon-ai',
+          animate: 'AI',
+          color: '#4285F4',
+          href: 'https://m5ez5v.aitianhu2.top/'
+        },
+        {
+          icon: 'icon-bizhishezhi',
+          animate: '壁纸',
+          color: '#95D5B2',
           href: 'https://asdbid.pages.dev/'
         },
         {
@@ -201,7 +203,7 @@ export default {
     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', this.applyTheme);
     window.addEventListener('keydown', (e) => {
       if (e.altKey) {
-        switch(e.key) {
+        switch (e.key) {
           case '1':
             this.selectEngine(this.searchEngines[0]);
             break;
@@ -241,7 +243,7 @@ export default {
 </script>
 
 <style lang="less">
-@import url(//at.alicdn.com/t/c/font_4685493_lrpbngzgvbk.css);
+@import url(//at.alicdn.com/t/c/font_4780523_u8yao3xqjpa.css);
 
 .page-container {
   min-height: 100vh;
@@ -531,7 +533,7 @@ export default {
 
   .header {
     margin-bottom: 15px;
-    
+
     img {
       width: 100px;
       height: 100px;
@@ -539,7 +541,7 @@ export default {
       border: 2px solid rgba(255, 255, 255, 0.2);
       box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
       transition: all 0.3s ease;
-      
+
       &:hover {
         transform: scale(1.05);
         border-color: rgba(255, 255, 255, 0.4);
@@ -554,7 +556,7 @@ export default {
       font-size: 2.2em;
       margin: 3px 0;
       text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-      
+
       .name {
         background: linear-gradient(45deg, #fe8599, #ff6b8b);
         -webkit-background-clip: text;
@@ -572,12 +574,12 @@ export default {
   margin: 10px 0;
   padding: 0 15px;
   max-width: 500px;
-  
+
   .iconfont {
     opacity: 0.8;
     margin: 0 10px;
   }
-  
+
   .vue-typed {
     display: inline-block;
     min-height: 24px;
@@ -589,7 +591,7 @@ export default {
   max-width: 500px;
   margin: 15px 0;
   padding: 0 20px;
-  
+
   .search-box {
     position: relative;
     display: flex;
@@ -599,13 +601,14 @@ export default {
     height: 40px;
     border-radius: 10px;
     transition: all 0.3s ease;
-    
-    &:hover, &:focus-within {
+
+    &:hover,
+    &:focus-within {
       background: rgba(255, 255, 255, 0.15);
       border-color: rgba(255, 255, 255, 0.3);
       box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     }
-    
+
     .search-icon {
       width: 40px;
       height: 100%;
@@ -613,14 +616,14 @@ export default {
       align-items: center;
       justify-content: center;
       cursor: pointer;
-      
+
       .engine-text-icon {
         font-size: 18px;
         font-weight: bold;
         color: rgba(255, 255, 255, 0.9);
       }
     }
-    
+
     input {
       flex: 1;
       height: 100%;
@@ -629,16 +632,16 @@ export default {
       background: transparent;
       color: #fff;
       font-size: 14px;
-      
+
       &:focus {
         outline: none;
       }
-      
+
       &::placeholder {
         color: rgba(255, 255, 255, 0.7);
       }
     }
-    
+
     .engine-list {
       position: absolute;
       top: calc(100% + 8px);
@@ -650,7 +653,7 @@ export default {
       overflow: hidden;
       box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
       z-index: 100;
-      
+
       .engine-item {
         display: flex;
         align-items: center;
@@ -658,7 +661,7 @@ export default {
         cursor: pointer;
         transition: all 0.2s;
         color: rgba(255, 255, 255, 0.85);
-        
+
         .engine-text-icon {
           font-size: 16px;
           font-weight: bold;
@@ -666,22 +669,22 @@ export default {
           text-align: center;
           margin-right: 10px;
         }
-        
+
         span {
           font-size: 14px;
         }
-        
+
         .shortcut {
           margin-left: auto;
           opacity: 0.5;
           font-size: 12px;
         }
-        
+
         &:hover {
           background: rgba(255, 255, 255, 0.1);
           color: #fff;
         }
-        
+
         &.active {
           background: rgba(255, 255, 255, 0.15);
           color: #fff;
@@ -697,13 +700,13 @@ export default {
   gap: 12px;
   flex-wrap: wrap;
   justify-content: center;
-  
+
   .vs-button {
     padding: 8px 20px;
     border-radius: 25px;
     font-weight: 500;
     letter-spacing: 0.5px;
-    
+
     &:hover {
       transform: translateY(-2px);
     }
