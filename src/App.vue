@@ -67,10 +67,6 @@
       </div>
     </div>
 
-    <div class="footer" style="text-align: center;">
-      By Quenan | ©2024
-    </div>
-
     <vs-dialog overlay-blur width="550px" not-center v-model="active">
 
       <div class="con-content">
@@ -161,9 +157,9 @@ export default {
           href: 'https://haowallpaper.com/homeView'
         },
         {
-          icon: 'icon-测量绘图',
+          icon: 'icon-celiang-',
           animate: '绘图',
-          color: '#FFC107',
+          color: '#D8D964',
           href: 'https://songlh.top/paint-board/'
         },
         {
@@ -254,7 +250,7 @@ export default {
 .page-container {
   min-height: 100vh;
   width: 100%;
-  background-image: url('https://dl.img.timecdn.cn/2025/01/25/2025-.jpg!h.webp');
+  background-image: url('https://dl.img.timecdn.cn/2024/12/05/-.jpg!h.webp');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
