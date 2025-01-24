@@ -161,6 +161,12 @@ export default {
           href: 'https://haowallpaper.com/homeView'
         },
         {
+          icon: 'icon-测量绘图',
+          animate: '绘图',
+          color: '#FFC107',
+          href: 'https://songlh.top/paint-board/'
+        },
+        {
           icon: 'icon-github',
           animate: 'Github',
           color: '#3d3d3d',
@@ -243,12 +249,12 @@ export default {
 </script>
 
 <style lang="less">
-@import url(//at.alicdn.com/t/c/font_4780523_u8yao3xqjpa.css);
+@import url(//at.alicdn.com/t/c/font_4780523_xt46eifim2.css);
 
 .page-container {
   min-height: 100vh;
   width: 100%;
-  background-image: url('https://dl.img.timecdn.cn/2024/11/24/-.jpg!h.webp');
+  background-image: url('https://dl.img.timecdn.cn/2025/01/25/2025-.jpg!h.webp');
   background-size: cover;
   background-position: center;
   background-attachment: fixed;
