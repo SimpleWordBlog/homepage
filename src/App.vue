@@ -142,7 +142,7 @@ export default {
           icon: 'icon-book',
           animate: '博客',
           color: '#fe8599',
-          href: 'https://asdbid.pages.dev/'
+          href: 'https://simpleword.bid/'
         },
         {
           icon: 'icon-ai',
