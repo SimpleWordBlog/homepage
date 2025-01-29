@@ -148,7 +148,7 @@ export default {
           icon: 'icon-ai',
           animate: 'AI',
           color: '#4285F4',
-          href: 'https://m5ez5v.aitianhu2.top/'
+          href: 'https://beta.theb.ai/home'
         },
         {
           icon: 'icon-bizhishezhi',
