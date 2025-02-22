@@ -8,12 +8,12 @@
       <div class="content-wrapper">
         <div class="info">
           <div class="header">
-            <img src="https://img.simpleword.bid/20250222162841307.webp" alt="">
+            <img src="https://img.simpleword.bid/20250222170953557.webp" alt="">
           </div>
 
           <div class="infoText">
             <h1>Hi,</h1>
-            <h1>I'm <span class="name">charon</span></h1>
+            <h1>I'm <span class="name">SimpleWord</span></h1>
           </div>
         </div>
 
@@ -142,7 +142,7 @@ export default {
           icon: 'icon-book',
           animate: '博客',
           color: '#fe8599',
-          href: 'https://yx.simpleword.bid/'
+          href: 'https://simpleword.bid/'
         },
         {
           icon: 'icon-ai',
@@ -166,7 +166,7 @@ export default {
           icon: 'icon-github',
           animate: 'Github',
           color: '#3d3d3d',
-          href: 'https://github.com/lllmllll'
+          href: 'https://github.com/simplewordblog'
         },
       ],
       active: false,
