@@ -8,7 +8,9 @@
       <div class="content-wrapper">
         <div class="info">
           <div class="header">
-            <img src="https://img.simpleword.bid/20250222170953557.webp" alt="">
+            <img
+              src="https://img.simpleword.bid/file/AgACAgQAAyEGAASeBiYcAAM2aBDEDksIR9VPdRNW7PmIb2St3H4AAv_IMRubiIhQnIKyePah_2sBAAMCAAN5AAM2BA.png"
+              alt="">
           </div>
 
           <div class="infoText">
