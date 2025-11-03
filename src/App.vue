@@ -352,7 +352,7 @@ export default {
 </script>
 
 <style lang="less">
-@import url(//at.alicdn.com/t/c/font_4780523_pnfydwni2u.css);
+@import url(//at.alicdn.com/t/c/font_4780523_twn7aguu5fj.css);
 
 /* --- 最终现代化设置弹窗样式 --- */
 .modal-for-settings {
