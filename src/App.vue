@@ -220,7 +220,7 @@ export default {
         { icon: 'icon-bizhishezhi', animate: '壁纸', color: '#95D5B2', href: 'https://haowallpaper.com/homeView', status: '' },
         { icon: 'icon-celiang-', animate: '绘图', color: '#D8D964', href: 'https://excalidraw.com/', status: '' },
         { icon: 'icon-studio', animate: 'Gemini', color: '#7A9157', href: 'https://aistudio.google.com/', status: '' },
-        { icon: 'icon-email', animate: 'email', color: '#ace458', href: 'https://aistudio.google.com/', status: '' },
+        { icon: 'icon-email', animate: 'email', color: '#ace458', href: 'https://tempmail.adguard.com/', status: '' },
         { icon: 'icon-github', animate: 'Github', color: '#3d3d3d', href: 'https://github.com/simplewordblog', status: '' },
       ];
     },
