@@ -221,6 +221,7 @@ export default {
         { icon: 'icon-celiang-', animate: '绘图', color: '#D8D964', href: 'https://excalidraw.com/', status: '' },
         { icon: 'icon-studio', animate: 'Gemini', color: '#7A9157', href: 'https://aistudio.google.com/', status: '' },
         { icon: 'icon-email', animate: 'email', color: '#ace458', href: 'https://tempmail.adguard.com/', status: '' },
+        { icon: 'icon-game', animate: 'Game', color: '#b92d2d', href: 'https://star.simpleword.bid/', status: '' },
         { icon: 'icon-github', animate: 'Github', color: '#3d3d3d', href: 'https://github.com/simplewordblog', status: '' },
       ];
     },
